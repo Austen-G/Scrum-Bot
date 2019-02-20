@@ -59,8 +59,12 @@ namespace ConsoleApp1
             if (Context.Message == null || Context.Message.Content == "") return;
             if (Context.User.IsBot) return;
 
+            //Create variable for position 0
             int ArgPos = 0;
+
+            //Check to see if the message is @ScrumBot or the message starts with "." to see if the message is supposed to be a command
             if(!(Message.HasStringPrefix(".", ref ArgPos) || Message.HasMentionPrefix(Client.CurrentUser, ref ArgPos))) return;
+
 
             var Result = await Commands.ExecuteAsync(Context, ArgPos, SP);
             if (!Result.IsSuccess)
