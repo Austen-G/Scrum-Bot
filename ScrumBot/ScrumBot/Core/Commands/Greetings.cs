@@ -17,13 +17,13 @@ namespace ScrumBot.Core.Commands
          * Replies to simple greeting commands.
          */
         [Command("Greetings"), Alias("Hi", "Hello", "Hey", "Yo"), Summary("Commant to greet people back if they say greet the bot")]
-        public async Task Greeting() => await ReplyAsync("Oh hey there!");
+        public async Task Greeting() => await ReplyAsync(Context.User.Mention + " Oh hey there!");
 
         /**
          *  Repeats what follows the command back in the channel.
          *      [Remainder]string text - text to be echoed.
          */
-        [Command("Echo")]
-        public async Task Echo([Remainder]string text) => await ReplyAsync(text);
+        [Command("Echo"), Alias("echo")]
+        public async Task Echo([Remainder]string text) => await ReplyAsync(Context.User.Mention + " " + text);
     }
 }
