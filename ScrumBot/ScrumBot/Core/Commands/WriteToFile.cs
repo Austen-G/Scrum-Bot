@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ScrumBot.Core.Commands
 {
-    class Class1
+    class RemList
     {
     }
 }
