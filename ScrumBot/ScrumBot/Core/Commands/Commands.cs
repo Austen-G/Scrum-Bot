@@ -13,54 +13,93 @@ namespace ScrumBot.Core.Commands
      */
     public class Job
     {
-        private string title;
-        private string developer;
-        private string description;
-
-        public Job( string title, string developer, string description )
+        public class Job
         {
-            this.description = description;
-            this.developer = developer;
-            this.description = description;
+            private string title;
+            private string developer;
+            private string description;
+            private status jobStatus;
+            private DateTime dateCreated;
+            private DateTime dateLastModified;
+            private DateTime dateFinished;
+
+
+            public Job(string title, string developer, string description)
+            {
+                this.description = description;
+                this.developer = developer;
+                this.description = description;
+                this.jobStatus = status.NOT_STARTED;
+                dateCreated = DateTime.Now;
+            }
+
+            public Job() { }
+
+            public void SetTitle(string title)
+            {
+                this.title = title;
+            }
+
+            public string GetTitle()
+            {
+                return title;
+            }
+
+            public void SetDeveloper(string developer)
+            {
+                this.developer = developer;
+            }
+
+            public string GetDeveloper()
+            {
+                return developer;
+            }
+
+            public void SetDescription(string description)
+            {
+                this.description = description;
+            }
+
+            public string GetDescription()
+            {
+                return description;
+            }
+            public DateTime getDateCreated()
+            {
+                return dateCreated;
+            }
+            public status getStatus()
+            {
+                return jobStatus;
+            }
+            public DateTime getDateLastModified()
+            {
+                return dateLastModified;
+            }
+            public DateTime getDateFinished()
+            {
+                return dateFinished;
+            }
+
         }
 
-        public Job( ) { }
-
-        public void SetTitle( string title )
+        public class Story : Job
         {
-            this.title = title;
+            private int sprintNum;
+            private DateTime sprintEndDate;
+
+            public Story(string title, string developer, string description, int sprint) : base(title, developer, description)
+            {
+                sprintNum = sprint;
+            }
+
+            public Story() { }
         }
 
-        public string GetTitle( )
-        {
-            return title;
-        }
-
-        public void SetDeveloper( string developer )
-        {
-            this.developer = developer;
-        }
-
-        public string GetDeveloper( )
-        {
-            return developer;
-        }
-
-        public void SetDescription( string description )
-        {
-            this.description = description;
-        }
-
-        public string GetDescription( )
-        {
-            return description;
-        }
-    }
-
-    /**
-     * Commands class contains all of the commands for the bot.
-     */
-    public class Commands : ModuleBase<SocketCommandContext>
+        /**
+         * Commands class contains all of the commands for the bot.
+         */
+        public class Commands : ModuleBase<SocketCommandContext>
     {
         List<Job> jobs = new List<Job>(); // A collection for all the jobs to add in a session.
 
