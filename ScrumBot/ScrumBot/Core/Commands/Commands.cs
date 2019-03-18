@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 
+using ScrumBot.Core.HelperData;
+
 namespace ScrumBot.Core.Commands
 {
     public class Job
@@ -13,12 +15,19 @@ namespace ScrumBot.Core.Commands
         private string title;
         private string developer;
         private string description;
+        private status jobStatus;
+        private DateTime dateCreated;
+        private DateTime dateLastModified;
+        private DateTime dateFinished;
+
 
         public Job( string title, string developer, string description )
         {
             this.description = description;
             this.developer = developer;
             this.description = description;
+            this.jobStatus = status.NOT_STARTED;
+            dateCreated = DateTime.Now;
         }
 
         public Job( ) { }
@@ -52,18 +61,50 @@ namespace ScrumBot.Core.Commands
         {
             return description;
         }
+        public DateTime getDateCreated()
+        {
+            return dateCreated;
+        }
+        public status getStatus()
+        {
+            return jobStatus;
+        }
+        public DateTime getDateLastModified()
+        {
+            return dateLastModified;
+        }
+        public DateTime getDateFinished()
+        {
+            return dateFinished;
+        }
+
+    }
+
+    public class Story : Job
+    {
+        private int sprintNum;
+        private DateTime sprintEndDate;
+
+        public Story(string title, string developer, string description, int sprint) : base(title, developer, description)
+        {
+            sprintNum = sprint;
+        }
+
+        public Story() { }
     }
 
     public class Commands : ModuleBase<SocketCommandContext>
     {
-        List<Job> tasks = new List<Job>();
+        List<Story> tasks = new List<Story>();
 
         [Command("CreateTask"), Alias("createTask"), Summary("Allows the user to create a task for their project")]
-        public async Task createTask(string title, string developer, string description )
+        public async Task createTask(string title, string developer, string description)
         {
-            tasks.Add(new Job(title, developer, description));
+            Story currStory = new Story(title, developer, description, 0);
+            tasks.Add(currStory);
 
-            await Context.Channel.SendMessageAsync("Created task titled: '" + title + "' for '" + developer + "' with the following description: '" + description + "'.");
+            await Context.Channel.SendMessageAsync("Created story titled: " + title + "' for '" + developer + "' with the following description: '" + description + "'." + "' at Date: '" + currStory.getDateCreated() + "' with status: '" + currStory.getStatus());
         }
+
     }
 }
