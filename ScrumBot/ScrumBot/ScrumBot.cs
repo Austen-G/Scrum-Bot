@@ -79,7 +79,7 @@ namespace ConsoleApp1
             await Client.SetGameAsync("Scrum Master Simulator");
         }
 
-
+        //Writes all of the lines in the console used for debug
         private async Task Client_Log(LogMessage Message)
         {
             Console.WriteLine($"{DateTime.Now} at {Message.Source}] {Message.Message}");
