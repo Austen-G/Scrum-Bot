@@ -114,7 +114,7 @@ namespace ScrumBot.Core.Commands
             // Provides the syntax to create a task
             if (args.Length < 3)
             {
-                await ReplyAsync("CreateTask <task>-<developer>-<description>");
+                await ReplyAsync("CreateTask <task>~<developer>~<description>");
                 return;
             }
             else
