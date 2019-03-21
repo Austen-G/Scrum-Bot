@@ -25,7 +25,8 @@ namespace ScrumBot.Core.Commands
             // Log reminder
             try
             {
-                using (StreamWriter sw = File.AppendText("ReminderList.txt"))
+                ReadAndWrite rw = new ReadAndWrite();
+                using (StreamWriter sw = File.AppendText(rw.getPath("ReminderList")))
                 {
                     await sw.WriteLineAsync(text);
                 }

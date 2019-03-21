@@ -35,7 +35,8 @@ namespace ScrumBot.Core.Commands
             // Get commands
             try
             {
-                using (StreamReader sr = File.OpenText("Help.txt"))
+                ReadAndWrite rw = new ReadAndWrite();
+                using (StreamReader sr = File.OpenText(rw.getPath("Help")))
                 {
                     string text;
                     while ((text = sr.ReadLine()) != null)

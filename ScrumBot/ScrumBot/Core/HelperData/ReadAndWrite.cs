@@ -46,6 +46,12 @@ namespace ScrumBot.Core.Commands
 
         }
 
+
+        /// <summary>
+        /// Finds the path to your local data folder when specified a filename
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         public String getPath(String fileName)
         {
             String workingDirectory = System.IO.Directory.GetCurrentDirectory();
