@@ -12,7 +12,7 @@ namespace ScrumBot.Core.HelperData
     {
         //create an embedded message
         //@todo
-        public createEmbed()
+        public void createEmbed()
         {
             EmbedBuilder embed = new EmbedBuilder();
         }

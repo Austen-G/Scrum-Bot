@@ -11,30 +11,18 @@ namespace ScrumBot.Core.Commands
 {
     public class WriteToFile : ModuleBase<SocketCommandContext>
     {
+        ReadAndWrite writer = new ReadAndWrite();
+
         [Command("CreateFile")]
         public async Task CreateFile(params String[] stringArray)
         {
-            Write(stringArray[0], stringArray[1]);
+            writer.Write(stringArray[0], stringArray[1]);
         }
 
-        //Create and Write to a specific file
-        async public void Write(String fileName, String addedText)
+        [Command("EditFile")]
+        public async Task EditFile(params String[] stringArray)
         {
-            String workingDirectory = System.IO.Directory.GetCurrentDirectory();
-
-            String path = Directory.GetParent(workingDirectory).Parent.FullName;
-            workingDirectory = path;
-            path = Directory.GetParent(workingDirectory).Parent.FullName;
-            path = path + @"\ScrumBot\Data\" + fileName + ".txt";
-
-
-            Console.WriteLine(path);
-            StreamWriter File = new StreamWriter(path);
-            File.Write(addedText);
-            File.Close();
+            writer.Edit(stringArray[0], stringArray[1], stringArray[2]);
         }
-
-        //public void Write to
-
     }
 }

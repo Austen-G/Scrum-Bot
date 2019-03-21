@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Text;
-
+using System.IO;
 using Discord;
 using Discord.Commands;
 
@@ -16,7 +16,7 @@ namespace ScrumBot.Core.Commands
         /**
          * Replies to simple greeting commands.
          */
-        [Command("Greetings"), Alias("Hi", "Hello", "Hey", "Yo"), Summary("Commant to greet people back if they say greet the bot")]
+        [Command("Greetings"), Alias("Hi", "Hello", "Hey", "Yo"), Summary("Command to greet people back if they say greet the bot")]
         public async Task Greeting() => await ReplyAsync("Oh hey there!");
 
         /**
@@ -25,30 +25,30 @@ namespace ScrumBot.Core.Commands
          */
         [Command("Echo"), Alias("echo")]
         public async Task Echo([Remainder]string text) => await ReplyAsync(text);
-    }
 
-    /**
+        /**
          *  Sends a list of commands that can be used
          */
-    [Command("Help")]
-    public async Task Echo()
-    {
-        // Get reminders
-        try
-        {
-            using (StreamReader sr = File.OpenText("Help.txt"))
+        [Command("Help"), Summary("Returns a list of commands that can be used")]
+        public async Task Help()
+        { 
+            // Get commands
+            try
             {
-                string text;
-                while ((text = sr.ReadLine()) != null)
+                using (StreamReader sr = File.OpenText("Help.txt"))
                 {
-                    // Send response
-                    await Context.Channel.SendMessageAsync(text);
+                    string text;
+                    while ((text = sr.ReadLine()) != null)
+                    {
+                        // Send response
+                        await Context.Channel.SendMessageAsync(text);
+                    }
                 }
             }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }
