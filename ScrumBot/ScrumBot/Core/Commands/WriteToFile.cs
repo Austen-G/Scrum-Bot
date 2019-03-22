@@ -20,8 +20,11 @@ namespace ScrumBot.Core.Commands
             {
                 await ReplyAsync("Incorrect number of parameters:");
             }
-            rw.Write(stringArray[0], stringArray[1]);
-            await ReplyAsync("File Edited");
+            else
+            {
+                rw.Write(stringArray[0], stringArray[1]);
+                await ReplyAsync("File Edited");
+            }
         }
 
         [Command("Edit")]
@@ -31,8 +34,11 @@ namespace ScrumBot.Core.Commands
             {
                 await ReplyAsync("Incorrect number of parameters: .Edit filename section newText");
             }
-            rw.EditSection(stringArray[0], stringArray[1], stringArray[2]);
-            await ReplyAsync("File Edited");
+            else
+            {
+                rw.EditSection(stringArray[0], stringArray[1], stringArray[2]);
+                await ReplyAsync("File Edited");
+            }
         }
     }
 }
