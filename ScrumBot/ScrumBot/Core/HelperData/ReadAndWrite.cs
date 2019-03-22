@@ -72,6 +72,13 @@ namespace ScrumBot.Core.Commands
         }
 
 
+        //edit a file based on the section you specify
+        public string ReadFile(string fileName)
+        {
+            path = getPath(fileName);
+            string text = File.ReadAllText(path);
+            return text;
+        }
 
 
 

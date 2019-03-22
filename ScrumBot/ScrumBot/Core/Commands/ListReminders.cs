@@ -15,25 +15,9 @@ namespace ScrumBot.Core.Commands
         public async Task RemList()
         {
             // Get reminders
-
-
-            try
-            {
-                ReadAndWrite rw = new ReadAndWrite();
-                using (StreamReader sr = File.OpenText(rw.getPath("ReminderList")))
-                {
-                    string text;
-                    while ((text = sr.ReadLine()) != null)
-                    {
-                        // Send response
-                        await Context.Channel.SendMessageAsync(text);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+            ReadAndWrite rw = new ReadAndWrite();
+            String text = rw.ReadFile("ReminderList");
+            await ReplyAsync(text);
         }
     }
 }

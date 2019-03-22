@@ -31,25 +31,10 @@ namespace ScrumBot.Core.Commands
          */
         [Command("Help"), Summary("Returns a list of commands that can be used")]
         public async Task Help()
-        { 
-            // Get commands
-            try
-            {
-                ReadAndWrite rw = new ReadAndWrite();
-                using (StreamReader sr = File.OpenText(rw.getPath("Help")))
-                {
-                    string text;
-                    while ((text = sr.ReadLine()) != null)
-                    {
-                        // Send response
-                        await Context.Channel.SendMessageAsync(text);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+        {
+            ReadAndWrite rw = new ReadAndWrite();
+            String text = rw.ReadFile("Help");
+            await ReplyAsync(text);
         }
     }
 }
