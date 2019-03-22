@@ -11,40 +11,69 @@ namespace ScrumBot.Core.Commands
 {
     public class ReadAndWrite
     {
+        String path;
+
         //Create and Write to a specific file
         public void Write(String fileName, String addedText)
         {
-            String path = getPath(fileName);
+            path = getPath(fileName);
             Console.WriteLine(path);
+
             StreamWriter File = new StreamWriter(path);
             File.Write(addedText);
             File.Close();
         }
 
-        //public void edit a file based on the section you specify
-        public async void Edit(String fileName, String section, String addedText)
+        //edit a file based on the section you specify
+        public async void EditSection(string fileName, string section, string newText)
         {
-
-
-            String path = getPath(fileName);
+            //Get the path of the file
+            path = getPath(fileName);
             Console.WriteLine(path);
-            StreamWriter writer = File.AppendText(path);
-            if (File.Exists(path))
+
+            //Create streamReader and a string to read to
+            StreamReader sr = File.OpenText(path);
+            string str;
+            
+
+            //Retrives text file
+            string text = File.ReadAllText(path);
+            string oldText = null;
+            bool foundText = false;
+
+            //replace section with new text
+            while ((str = sr.ReadLine()) != null && foundText == false)
             {
-                try
+                if ((str = sr.ReadLine()) == section)
                 {
-                    using (writer)
+                    //begin text with ---
+                    oldText = sr.ReadLine();
+                    //read and copy lines of text
+                    while ((str = sr.ReadLine()) != "---")
                     {
-                        await writer.WriteLineAsync(path);
+                        oldText = oldText + "\r\n" + str;
                     }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
+                    foundText = true;
                 }
             }
+            sr.Close();
 
+            //end text with ---
+            oldText = oldText + "\r\n" + "---";
+            //add markers to new text
+            newText = "---\r\n" + newText + "\r\n---";
+
+            //replace old text with specified text
+            text = text.Replace(oldText, newText);
+            Console.WriteLine(text);
+
+            //Write new text to file.
+            await File.WriteAllTextAsync(path, text);
         }
+
+
+
+
 
 
         /// <summary>
@@ -55,12 +84,13 @@ namespace ScrumBot.Core.Commands
         public String getPath(String fileName)
         {
             String workingDirectory = System.IO.Directory.GetCurrentDirectory();
-            String path = null;
             path = Directory.GetParent(workingDirectory).Parent.FullName;
             workingDirectory = path;
             path = Directory.GetParent(workingDirectory).Parent.FullName;
             path = path + @"\ScrumBot\Data\" + fileName + ".txt";
             return path;
         }
+
+
     }
 }

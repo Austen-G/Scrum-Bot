@@ -11,18 +11,28 @@ namespace ScrumBot.Core.Commands
 {
     public class WriteToFile : ModuleBase<SocketCommandContext>
     {
-        ReadAndWrite writer = new ReadAndWrite();
+        ReadAndWrite rw = new ReadAndWrite();
 
         [Command("CreateFile")]
         public async Task CreateFile(params String[] stringArray)
         {
-            writer.Write(stringArray[0], stringArray[1]);
+            if (stringArray.Length != 3)
+            {
+                await ReplyAsync("Incorrect number of parameters:");
+            }
+            rw.Write(stringArray[0], stringArray[1]);
+            await ReplyAsync("File Edited");
         }
 
-        [Command("EditFile")]
+        [Command("Edit")]
         public async Task EditFile(params String[] stringArray)
         {
-            writer.Edit(stringArray[0], stringArray[1], stringArray[2]);
+            if(stringArray.Length != 3)
+            {
+                await ReplyAsync("Incorrect number of parameters: .Edit filename section newText");
+            }
+            rw.EditSection(stringArray[0], stringArray[1], stringArray[2]);
+            await ReplyAsync("File Edited");
         }
     }
 }
