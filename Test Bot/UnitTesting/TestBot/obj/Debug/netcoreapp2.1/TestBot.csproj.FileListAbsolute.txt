@@ -1,0 +1,11 @@
+C:\Users\Brian\Documents\CS3141\Test Bot\UnitTesting\TestBot\bin\Debug\netcoreapp2.1\TestBot.deps.json
+C:\Users\Brian\Documents\CS3141\Test Bot\UnitTesting\TestBot\bin\Debug\netcoreapp2.1\TestBot.runtimeconfig.json
+C:\Users\Brian\Documents\CS3141\Test Bot\UnitTesting\TestBot\bin\Debug\netcoreapp2.1\TestBot.runtimeconfig.dev.json
+C:\Users\Brian\Documents\CS3141\Test Bot\UnitTesting\TestBot\bin\Debug\netcoreapp2.1\TestBot.dll
+C:\Users\Brian\Documents\CS3141\Test Bot\UnitTesting\TestBot\obj\Debug\netcoreapp2.1\TestBot.csprojAssemblyReference.cache
+C:\Users\Brian\Documents\CS3141\Test Bot\UnitTesting\TestBot\obj\Debug\netcoreapp2.1\TestBot.csproj.CoreCompileInputs.cache
+C:\Users\Brian\Documents\CS3141\Test Bot\UnitTesting\TestBot\obj\Debug\netcoreapp2.1\TestBot.AssemblyInfoInputs.cache
+C:\Users\Brian\Documents\CS3141\Test Bot\UnitTesting\TestBot\obj\Debug\netcoreapp2.1\TestBot.AssemblyInfo.cs
+C:\Users\Brian\Documents\CS3141\Test Bot\UnitTesting\TestBot\bin\Debug\netcoreapp2.1\TestBot.pdb
+C:\Users\Brian\Documents\CS3141\Test Bot\UnitTesting\TestBot\obj\Debug\netcoreapp2.1\TestBot.dll
+C:\Users\Brian\Documents\CS3141\Test Bot\UnitTesting\TestBot\obj\Debug\netcoreapp2.1\TestBot.pdb
