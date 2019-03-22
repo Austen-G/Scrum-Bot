@@ -1,5 +1,8 @@
-Greetings
-Echo
 CreateFile
+CreateTask
+Echo
+EditFile
+Greetings
+Help
 Reminder
 ListReminders
