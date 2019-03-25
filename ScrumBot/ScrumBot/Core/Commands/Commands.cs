@@ -48,7 +48,9 @@ namespace ScrumBot.Core.Commands
             else
             {
                 Story story = new Story(args[0], args[1], args[2], Convert.ToInt32(args[3]));
-
+                ReadAndWrite rw = new ReadAndWrite();
+                rw.Write(args[0], param);
+               
                 var eb = new EmbedBuilder();
 
                 eb.WithColor(Color.Orange);
