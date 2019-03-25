@@ -30,18 +30,38 @@ namespace ScrumBot.Core.Commands
             // Provides the syntax to create a task
             if (args.Length < 3)
             {
-                await ReplyAsync("CreateTask <task>~<developer>~<description>");
-                return;
+                var eb = new EmbedBuilder();
+
+                eb.WithColor(Color.Orange);
+                eb.WithTitle("CreateTask");
+                eb.WithAuthor("ScrumBot");
+                eb.WithDescription("Creates a task for a given user, with the following criteria:");
+                eb.AddField(".CreateTask", "Command name");
+                eb.AddField("<title>", "Title of the task");
+                eb.AddField("<developer>", "Name of developer assigned to task");
+                eb.AddField("<description>", "Description of the task");
+                eb.AddField("[jobStatus]", "(0) NOT_STARTED, (1) IN_PROGRESS, (2) NEEDS_TESTING, (3) IN_TESTING, (4) DONE, (5) COMPLETE");
+                eb.WithFooter("Thank you!");
+
+                await Context.Channel.SendMessageAsync("", false, eb.Build());
             }
             else
             {
-                jobs.Add(new Job(args[0], args[1], args[2])); // Adds it to jobs
-                // Mentions user in reply if user is not a bot
-                if (!Context.User.IsBot)
-                    await ReplyAsync(Context.User.Mention + " Task: '" + args[0] + "', Developer: '" + args[1] + "', Description: '" + args[2] + "'.");
-                else
-                    await ReplyAsync("Task: '" + args[0] + "', Developer: '" + args[1] + "', Description: '" + args[2] + "'.");
-                // Replies to the user, confirming the task.
+                Story story = new Story(args[0], args[1], args[2], Convert.ToInt32(args[3]));
+
+                var eb = new EmbedBuilder();
+
+                eb.WithColor(Color.Orange);
+                eb.WithTitle("Task Created Successfully!");
+                eb.WithAuthor("ScrumBot");
+                eb.WithDescription("Task '" + args[0] + "' created and saved successfully.");
+                eb.AddField("Title:", args[0]);
+                eb.AddField("Developer:", args[1]);
+                eb.AddField("Description:", args[2]);
+                eb.AddField("Job Status:", args[3]);
+                eb.WithFooter("Thank you!");
+
+                await Context.Channel.SendMessageAsync("", false, eb.Build());
             }
         }
     }
