@@ -57,7 +57,7 @@ namespace ConsoleApp1
             var Context = new SocketCommandContext(Client, Message);
 
             if (Context.Message == null || Context.Message.Content == "") return;
-            // if (Context.User.IsBot) return;
+            if (Context.User.IsBot && Context.User.Id != 546030047635701771) return;
 
             //Create variable for position 0
             int ArgPos = 0;

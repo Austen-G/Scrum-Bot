@@ -18,7 +18,7 @@ namespace ScrumBot.Core.Commands
         {
             if (stringArray.Length != 3)
             {
-                await ReplyAsync("Incorrect number of parameters:");
+                await ReplyAsync("Incorrect number of parameters: .CreateFile filename text");
             }
             else
             {

@@ -32,9 +32,26 @@ namespace ScrumBot.Core.Commands
         [Command("Help"), Summary("Returns a list of commands that can be used")]
         public async Task Help()
         {
+            /**
             ReadAndWrite rw = new ReadAndWrite();
             String text = rw.ReadFile("Help");
-            await ReplyAsync(text);
+            String[] commands = text.Split("\n");
+            */
+            var eb = new EmbedBuilder();
+            eb.WithColor(Color.Orange);
+            eb.WithAuthor("ScrumBot");
+            eb.WithTitle("Help");
+            eb.WithDescription("Here's a list of the available commands: ");
+            eb.AddField(".CreateFile <filename> <text>", "Creates a new file with the given text input", false);
+            eb.AddField(".CreateTask <title>~<developer>~<description>~<jobStatus>", "Creates a task for a certain developer with the given text input", false);
+            eb.AddField(".Echo <text>", "Repeats text back to user", false);
+            eb.AddField(".Edit <filename> <section> <newText>", "Edits an existing file at the given section.", false);
+            eb.AddField(".Greetings", "Bot says 'Oh hey there!'", false);
+            eb.AddField(".Help", "Lists available commands.", false);
+            eb.AddField(".Reminder <title>", "Creates a reminder for an individual.", false);
+            eb.AddField(".ListReminders", "Lists all reminders for the entire team.", false);
+
+            await Context.Channel.SendMessageAsync("", false, eb.Build());
         }
     }
 }
