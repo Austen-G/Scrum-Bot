@@ -20,7 +20,18 @@ namespace ScrumBot.Core.Commands
 
             // Send response
             String text = "Reminder '" + stringArray[0] + "' created at time: (" + time + ") by user: " + user;
-            await Context.Channel.SendMessageAsync(text);
+            var eb = new EmbedBuilder();
+
+            eb.WithColor(Color.Orange);
+            eb.WithAuthor("ScrumBot");
+            eb.WithTitle("Create Reminder");
+            eb.WithDescription("Creates a reminder for the current user");
+            eb.AddField("Reminder Name:", stringArray[0], true);
+            eb.AddField("Created at:", "(" + time + ")", true);
+            eb.AddField("User: ", user, true);
+            eb.WithFooter("Thank you!");
+
+            await Context.Channel.SendMessageAsync("", false, eb.Build());
 
             // Log reminder
             try
