@@ -42,14 +42,14 @@ namespace ScrumBot.Core.Commands
             eb.WithAuthor("ScrumBot");
             eb.WithTitle("Help");
             eb.WithDescription("Here's a list of the available commands: ");
-            eb.AddField(".CreateFile <filename> <text>", "Creates a new file with the given text input", false);
-            eb.AddField(".CreateTask <title>~<developer>~<description>~<jobStatus>", "Creates a task for a certain developer with the given text input", false);
-            eb.AddField(".Echo <text>", "Repeats text back to user", false);
-            eb.AddField(".Edit <filename> <section> <newText>", "Edits an existing file at the given section.", false);
-            eb.AddField(".Greetings", "Bot says 'Oh hey there!'", false);
-            eb.AddField(".Help", "Lists available commands.", false);
-            eb.AddField(".Reminder <title>", "Creates a reminder for an individual.", false);
-            eb.AddField(".ListReminders", "Lists all reminders for the entire team.", false);
+            eb.AddField(".CreateFile <filename> <text>", "Creates a new file with the given text input", true);
+            eb.AddField(".CreateTask <title>~<developer>~<description>~<jobStatus>", "Creates a task for a certain developer with the given text input", true);
+            eb.AddField(".Echo <text>", "Repeats text back to user", true);
+            eb.AddField(".Edit <filename> <section> <newText>", "Edits an existing file at the given section.", true);
+            eb.AddField(".Greetings", "Bot says 'Oh hey there!'", true);
+            eb.AddField(".Help", "Lists available commands.", true);
+            eb.AddField(".Reminder <title>", "Creates a reminder for an individual.", true);
+            eb.AddField(".ListReminders", "Lists all reminders for the entire team.", true);
 
             await Context.Channel.SendMessageAsync("", false, eb.Build());
         }

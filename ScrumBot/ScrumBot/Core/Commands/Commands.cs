@@ -44,13 +44,7 @@ namespace ScrumBot.Core.Commands
                 eb.WithFooter("Thank you!");
 
                 await Context.Channel.SendMessageAsync("", false, eb.Build());
-            }
-            else
-            {
-                Story story = new Story(args[0], args[1], args[2], Convert.ToInt32(args[3]));
-                ReadAndWrite rw = new ReadAndWrite();
-                rw.Write(args[0], param);
-               
+            } else {  
                 var eb = new EmbedBuilder();
 
                 eb.WithColor(Color.Orange);
