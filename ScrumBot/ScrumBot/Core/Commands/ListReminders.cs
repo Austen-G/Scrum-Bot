@@ -17,7 +17,16 @@ namespace ScrumBot.Core.Commands
             // Get reminders
             ReadAndWrite rw = new ReadAndWrite();
             String text = rw.ReadFile("ReminderList");
-            await ReplyAsync(text);
+
+            var eb = new EmbedBuilder();
+            eb.WithColor(Color.Orange);
+            eb.WithAuthor("ScrumBot");
+            eb.WithTitle("ListReminders");
+            eb.WithDescription("Lists all pending reminders.");
+            eb.WithFooter("Thank you!");
+            eb.AddField("Reminders", text, true);
+
+            await Context.Channel.SendMessageAsync("", false, eb.Build());
         }
     }
 }
