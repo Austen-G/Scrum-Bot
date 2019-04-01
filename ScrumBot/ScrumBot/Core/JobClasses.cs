@@ -96,4 +96,37 @@ namespace ScrumBot.Core
 
         public Story() { }
     }
+
+    public class sTask : Job
+    {
+        private Story parStory;
+        private DateTime dueDate;
+
+        public sTask(string title, string developer, string description, Story story, DateTime date) : base(title, developer, description)
+        {
+            parStory = story;
+            dueDate = date; 
+        }
+
+        // accessors and mutators for sTask specific fields
+        public Story getStory()
+        {
+            return parStory;
+        }
+        public DateTime getDueDate()
+        {
+            return dueDate;
+        }
+
+        public void setStory(Story story)
+        {
+            parStory = story;
+        }
+        public void setDueDate(DateTime date)
+        {
+            dueDate = date; 
+        }
+
+    }
+
 }
