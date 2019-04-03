@@ -27,7 +27,7 @@ namespace ScrumBot.Core
 
         public Job(string title, string developer, string description)
         {
-            this.description = description;
+            this.title = title;
             this.developer = developer;
             this.description = description;
             this.jobStatus = status.NOT_STARTED;
