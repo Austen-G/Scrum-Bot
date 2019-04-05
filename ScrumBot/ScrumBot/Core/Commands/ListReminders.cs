@@ -31,9 +31,7 @@ namespace ScrumBot.Core.Commands
                 {
                     // Read in reminder data
                     string fileName = @"Reminders\" + obj;
-                    Console.WriteLine(fileName);
                     String name = rw.ReadSection(fileName, "Name");
-                    Console.WriteLine(name);
                     String message = rw.ReadSection(fileName, "Message");
                     DateTime expires = DateTime.Parse( rw.ReadSection(fileName, "Time Expires") );
                     String users = rw.ReadSection(fileName, "Target Users");
