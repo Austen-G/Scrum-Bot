@@ -27,6 +27,12 @@ namespace ScrumBot.Core.Commands
         public async Task CreateJob([Remainder]string param)
         {
             string[] args = param.Split('~'); // Parses parameters using '~' delimiter.
+            
+            if (Context.User.IsBot)
+            {
+                await ReplyAsync("TESTING .CreateJob");
+            }
+            
             // Provides the syntax to create a task
             if (args.Length < 3)
             {

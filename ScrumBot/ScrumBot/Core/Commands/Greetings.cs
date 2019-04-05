@@ -37,6 +37,12 @@ namespace ScrumBot.Core.Commands
             String text = rw.ReadFile("Help");
             String[] commands = text.Split("\n");
             */
+
+            if (Context.User.IsBot)
+            {
+                await ReplyAsync("TESTING .Help");
+            }
+            
             var eb = new EmbedBuilder();
             eb.WithColor(Color.Orange);
             eb.WithAuthor("ScrumBot");

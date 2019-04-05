@@ -14,6 +14,11 @@ namespace ScrumBot.Core.Commands
         [Command("ListReminders"), Alias("RemList"), Summary("List all reminders")]
         public async Task RemList()
         {
+            if (Context.User.IsBot)
+            {
+                await ReplyAsync("TESTING .ListReminders");
+            }
+
             // Get reminders
             ReadAndWrite rw = new ReadAndWrite();
             String text = rw.ReadFile("ReminderList");

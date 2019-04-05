@@ -14,6 +14,11 @@ namespace ScrumBot.Core.Commands
         [Command("Reminder"), Alias("Rem"), Summary("Create a new reminder")]
         public async Task CreateRem(params String[] stringArray)
         {
+            if (Context.User.IsBot)
+            {
+                await ReplyAsync("TESTING .Reminder");
+            }
+
             // Get the time and user info
             var time = DateTime.Now;
             var user = Context.User.Mention;
