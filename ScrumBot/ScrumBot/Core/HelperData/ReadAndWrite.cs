@@ -13,26 +13,22 @@ namespace ScrumBot.Core.Commands
     {
         String path;
 
-        //Create and Write to a specific file
-        public void CreateFileWithTitle(String fileName, String addedText)
+        //Create and name the file putting
+        public void CreateFileWithTitle(String fileName, String Title)
         {
             path = getPath(fileName);
             Console.WriteLine(path);
 
             StreamWriter File = new StreamWriter(path);
-            File.Write(addedText);
+            File.Write(Title);
             File.Close();
         }
 
         //edit a file based on the section you specify
         public async void EditSection(string fileName, string section, string newText)
         {
-            //Get the path of the file
-            path = getPath(fileName);
-            Console.WriteLine(path);
-
             //Create streamReader and a string to read to
-            StreamReader sr = File.OpenText(path);
+            StreamReader sr = openTextToRead(fileName);
             string str;
             
 
@@ -69,16 +65,20 @@ namespace ScrumBot.Core.Commands
 
             //Write new text to file.
             await File.WriteAllTextAsync(path, text);
+
+            closeText(sr);
         }
 
 
-        //edit a file based on the section you specify
+        //Read all text in a file
         public string ReadFile(string fileName)
         {
             path = getPath(fileName);
             string text = File.ReadAllText(path);
             return text;
         }
+
+
 
         public string ReadSection(string fileName, string sectionName)
         {
@@ -108,24 +108,6 @@ namespace ScrumBot.Core.Commands
             return text;
         }
 
-        //add a line to a text file
-        public void writeLine(string fileName, string newText)
-        {
-            try
-            {
-                using (StreamWriter sw = File.AppendText(getPath(fileName)))
-                {
-                    sw.WriteLine(newText);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-        }
-        
-
-
         //opens an already made file to read
         public StreamReader openTextToRead(string fileName)
         {
@@ -146,7 +128,7 @@ namespace ScrumBot.Core.Commands
 
             //Create streamReader and a string to read to
             StreamWriter sw = File.AppendText(path);
-            sw.WriteLine("\r\n");
+            sw.WriteLine("");
             return sw;
         }
 
@@ -156,7 +138,6 @@ namespace ScrumBot.Core.Commands
             sw.WriteLine("---");
             sw.WriteLine(contents);
             sw.WriteLine("---");
-            sw.WriteLine("");
         }
 
         public void closeText(StreamWriter sw)
