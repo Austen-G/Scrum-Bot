@@ -14,7 +14,7 @@ namespace ScrumBot.Core.Commands
         String path;
 
         //Create and Write to a specific file
-        public void Write(String fileName, String addedText)
+        public void CreateFileWithTitle(String fileName, String addedText)
         {
             path = getPath(fileName);
             Console.WriteLine(path);
@@ -145,7 +145,7 @@ namespace ScrumBot.Core.Commands
             path = getPath(fileName);
 
             //Create streamReader and a string to read to
-            StreamWriter sw = new StreamWriter(path);
+            StreamWriter sw = File.AppendText(path);
             return sw;
         }
 
