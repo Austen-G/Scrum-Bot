@@ -146,6 +146,7 @@ namespace ScrumBot.Core.Commands
 
             //Create streamReader and a string to read to
             StreamWriter sw = File.AppendText(path);
+            sw.WriteLine();
             return sw;
         }
 
