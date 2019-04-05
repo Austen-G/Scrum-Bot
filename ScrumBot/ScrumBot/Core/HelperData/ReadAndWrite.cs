@@ -112,6 +112,23 @@ namespace ScrumBot.Core.Commands
             return text;
         }
 
+        //add a line to a text file
+        public void writeLine(string fileName, string newText)
+        {
+            try
+            {
+                using (StreamWriter sw = File.AppendText(getPath(fileName)))
+                {
+                    sw.WriteLine(newText);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+        
+
 
 
 
