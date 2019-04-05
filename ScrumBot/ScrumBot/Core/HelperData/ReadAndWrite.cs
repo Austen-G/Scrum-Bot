@@ -82,12 +82,8 @@ namespace ScrumBot.Core.Commands
 
         public string ReadSection(string fileName, string sectionName)
         {
-            //Get the path of the file
-            path = getPath(fileName);
-            Console.WriteLine(path);
-
             //Create streamReader and a string to read to
-            StreamReader sr = File.OpenText(path);
+            StreamReader sr = openTextToRead(fileName);
             string str;
 
 
@@ -130,6 +126,45 @@ namespace ScrumBot.Core.Commands
         
 
 
+
+        public StreamReader openTextToRead(string fileName)
+        {
+            //Get the path of the file
+            path = getPath(fileName);
+            Console.WriteLine(path);
+
+            //Create streamReader and a string to read to
+            StreamReader sr = File.OpenText(path);
+            return sr;
+        }
+
+        public StreamWriter openTextToWrite(string fileName)
+        {
+            //Get the path of the file
+            path = getPath(fileName);
+
+            //Create streamReader and a string to read to
+            StreamWriter sw = new StreamWriter(path);
+            return sw;
+        }
+
+        public void addSection( StreamWriter sw, string sectionName, string contents)
+        {
+            sw.WriteLine(sectionName);
+            sw.WriteLine("---");
+            sw.WriteLine(contents);
+            sw.WriteLine("---");
+        }
+
+        public void closeText(StreamWriter sw)
+        {
+            sw.Close();
+        }
+
+        public void closeText(StreamReader sr)
+        {
+            sr.Close();
+        }
 
 
         /// <summary>
