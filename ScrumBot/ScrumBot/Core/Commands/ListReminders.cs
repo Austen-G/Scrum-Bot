@@ -24,6 +24,7 @@ namespace ScrumBot.Core.Commands
                 {
                     while (!file.EndOfStream)
                         reminders.Add(await file.ReadLineAsync());
+                    file.Close();
                 }
 
                 // Foreach reminder

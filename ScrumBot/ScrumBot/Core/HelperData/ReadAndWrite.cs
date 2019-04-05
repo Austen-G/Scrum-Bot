@@ -24,6 +24,16 @@ namespace ScrumBot.Core.Commands
             File.Close();
         }
 
+        // Delete a file
+        public void deleteFile(string fileName)
+        {
+            //Get the path of the file
+            path = getPath(fileName);
+
+            //Delete it
+            File.Delete(path);
+        }
+
         //edit a file based on the section you specify
         public async void EditSection(string fileName, string section, string newText)
         {
@@ -104,7 +114,8 @@ namespace ScrumBot.Core.Commands
                     }
                 }
             }
-            
+
+            sr.Close();
             return text;
         }
 
