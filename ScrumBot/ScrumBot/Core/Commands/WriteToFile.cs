@@ -32,7 +32,7 @@ namespace ScrumBot.Core.Commands
             }
             else
             {
-                rw.Write(args[0], args[1]);
+                rw.CreateFileWithTitle(args[0], args[1]);
                 eb.AddField("File '" + args[0] + "' created successfully!", args[1], true);
             }
 

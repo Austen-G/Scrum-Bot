@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Text;
+using System.Collections;
 
 using Discord;
 using Discord.Commands;
@@ -14,24 +15,44 @@ namespace ScrumBot.Core.Commands
         [Command("ListReminders"), Alias("RemList"), Summary("List all reminders")]
         public async Task RemList()
         {
-            if (Context.User.IsBot)
+            try
             {
-                await ReplyAsync("TESTING .ListReminders");
+                // Read all reminders into an array
+                ReadAndWrite rw = new ReadAndWrite();
+                ArrayList reminders = new ArrayList();
+                using (StreamReader file = File.OpenText(rw.getPath(@"Reminders\ReminderList")))
+                {
+                    while (!file.EndOfStream)
+                        reminders.Add(await file.ReadLineAsync());
+                    file.Close();
+                }
+
+                // Foreach reminder
+                foreach (Object obj in reminders)
+                {
+                    // Read in reminder data
+                    string fileName = @"Reminders\" + obj;
+                    String name = rw.ReadSection(fileName, "Name");
+                    String message = rw.ReadSection(fileName, "Message");
+                    DateTime expires = DateTime.Parse( rw.ReadSection(fileName, "Time Expires") );
+                    String users = rw.ReadSection(fileName, "Target Users");
+
+                    // Print it as an embed
+                    var eb = new EmbedBuilder();
+                    eb.WithColor(Color.Orange);
+                    eb.WithTitle("New Reminder:");
+                    eb.WithDescription(message);
+                    eb.AddField("Reminder Name:", name, true);
+                    eb.AddField("For time:", "(" + expires + ")", true);
+                    eb.AddField("Will notify: ", users, false);
+                    eb.WithFooter("Reminder logged!");
+                    await Context.Channel.SendMessageAsync("", false, eb.Build());
+                }
             }
-
-            // Get reminders
-            ReadAndWrite rw = new ReadAndWrite();
-            String text = rw.ReadFile("ReminderList");
-
-            var eb = new EmbedBuilder();
-            eb.WithColor(Color.Orange);
-            eb.WithAuthor("ScrumBot");
-            eb.WithTitle("ListReminders");
-            eb.WithDescription("Lists all pending reminders.");
-            eb.WithFooter("Thank you!");
-            eb.AddField("Reminders", text, true);
-
-            await Context.Channel.SendMessageAsync("", false, eb.Build());
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }
