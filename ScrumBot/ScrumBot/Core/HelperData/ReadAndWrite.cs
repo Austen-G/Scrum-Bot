@@ -17,7 +17,6 @@ namespace ScrumBot.Core.Commands
         public void CreateFileWithTitle(String fileName, String Title)
         {
             path = getPath(fileName);
-            Console.WriteLine(path);
 
             StreamWriter File = new StreamWriter(path);
             File.Write(Title);
@@ -71,7 +70,6 @@ namespace ScrumBot.Core.Commands
 
             //replace old text with specified text
             text = text.Replace(oldText, newText);
-            Console.WriteLine(text);
 
             //Write new text to file.
             await File.WriteAllTextAsync(path, text);
@@ -124,7 +122,6 @@ namespace ScrumBot.Core.Commands
         {
             //Get the path of the file
             path = getPath(fileName);
-            Console.WriteLine(path);
 
             //Create streamReader and a string to read to
             StreamReader sr = File.OpenText(path);
@@ -177,5 +174,16 @@ namespace ScrumBot.Core.Commands
             return path;
         }
 
+        //Create Project
+        
+        //Create Story
+        public void writeStory(Node<Story> foo)
+        { 
+            foo.Value.GetTitle();
+            foo.Value.GetDeveloper();
+            foo.Value.GetDescription();
+            //foo.Value.GetSprint();
+        }
+        //Create Task
     }
 }
