@@ -80,6 +80,38 @@ namespace ScrumBot.Core.Commands
             return text;
         }
 
+        public string ReadSection(string fileName, string sectionName)
+        {
+            //Get the path of the file
+            path = getPath(fileName);
+            Console.WriteLine(path);
+
+            //Create streamReader and a string to read to
+            StreamReader sr = File.OpenText(path);
+            string str;
+
+
+            //Retrives text file
+            string text = "";
+            bool foundText = false;
+
+            //replace section with new text
+            while ((str = sr.ReadLine()) != null && foundText == false)
+            {
+                if ((str = sr.ReadLine()) == sectionName)
+                {
+                    sr.ReadLine();
+                    foundText = true;
+                    while ((str = sr.ReadLine()) != "---")
+                    {
+                        text = text + "\r\n" + str;
+                    }
+                }
+            }
+            
+            return text;
+        }
+
 
 
 
@@ -97,7 +129,6 @@ namespace ScrumBot.Core.Commands
             path = path + @"\ScrumBot\Data\" + fileName + ".txt";
             return path;
         }
-
 
     }
 }
