@@ -126,7 +126,7 @@ namespace ScrumBot.Core.Commands
         
 
 
-
+        //opens an already made file to read
         public StreamReader openTextToRead(string fileName)
         {
             //Get the path of the file
@@ -138,6 +138,7 @@ namespace ScrumBot.Core.Commands
             return sr;
         }
 
+        //opens an already made file to Write
         public StreamWriter openTextToWrite(string fileName)
         {
             //Get the path of the file
@@ -154,6 +155,7 @@ namespace ScrumBot.Core.Commands
             sw.WriteLine("---");
             sw.WriteLine(contents);
             sw.WriteLine("---");
+            sw.WriteLine("");
         }
 
         public void closeText(StreamWriter sw)
