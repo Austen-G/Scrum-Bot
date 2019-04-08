@@ -54,7 +54,7 @@ namespace ScrumBot.Core.Commands
             eb.AddField(".Edit <filename> <section> <newText>", "Edits an existing file at the given section.", true);
             eb.AddField(".Greetings", "Bot says 'Oh hey there!'", true);
             eb.AddField(".Help", "Lists available commands.", true);
-            eb.AddField(".Reminder <Reminder name>~<Reminder message>~<Days.Hours:MinutesFromNow>~<TargetUser1>", "Creates a reminder for an individual.", true);
+            eb.AddField(".Reminder <Reminder name>~<Reminder message>~<MM/DD/YY HH:MM AM/PM>~<TargetUsers>", "Creates a new reminder.", true);
             eb.AddField(".ListReminders", "Lists all reminders for the entire team.", true);
 
             await Context.Channel.SendMessageAsync("", false, eb.Build());

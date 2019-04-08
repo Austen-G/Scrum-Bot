@@ -30,7 +30,7 @@ namespace ScrumBot.Core.Commands
                 string name = args[0];                                       // Reminder name (must be unique)
                 string message = args[1];                                    // Reminder message text
                 var timeCreated = DateTime.Now;                              // Time it was created
-                var timeExpires = DateTime.Now.Add(TimeSpan.Parse(args[2])); // Time it will expire (Now + Days.Hours:Minutes)
+                var timeExpires = DateTime.Parse(args[2]);                   // Time it will expire       ex. 08/18/2018 07:22:16 AM/PM
                 var createdBy = Context.User.Mention;                        // User who created the reminder
                 string targetUsers = args[3];                                // Users to be notified when reminder expires
 
