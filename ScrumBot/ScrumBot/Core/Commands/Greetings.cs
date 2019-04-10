@@ -29,7 +29,7 @@ namespace ScrumBot.Core.Commands
         /**
          *  Sends a list of commands that can be used
          */
-        [Command("Help"), Summary("Returns a list of commands that can be used")]
+        [Command("Help"), Alias("help"), Summary("Returns a list of commands that can be used")]
         public async Task Help()
         {
             /**

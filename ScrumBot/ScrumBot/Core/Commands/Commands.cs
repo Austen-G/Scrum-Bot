@@ -17,8 +17,9 @@ namespace ScrumBot.Core.Commands
      */
     public class Commands : ModuleBase<SocketCommandContext>
     {
-        List<Job> jobs = new List<Job>(); // A collection for all the jobs to add in a session.
-
+        List<Job> jobs = new List<Job>();
+        List<Story> stories = new List<Story>();
+        List<sTask> tasks = new List<sTask>();
         /**
          *  Defines a task based on given parameters, and adds it to jobs.
          *      [Remainder]string param - Entire substring after the command and space.
@@ -27,42 +28,121 @@ namespace ScrumBot.Core.Commands
         public async Task CreateJob([Remainder]string param)
         {
             string[] args = param.Split('~'); // Parses parameters using '~' delimiter.
-            
+            Job job = null;
+
             if (Context.User.IsBot)
             {
                 await ReplyAsync("TESTING .CreateJob");
             }
-            
+
+            var eb = new EmbedBuilder();
+            eb.WithColor(Color.Orange);
+            eb.WithAuthor("ScrumBot");
+            eb.WithFooter("Thank you!");
+
             // Provides the syntax to create a task
             if (args.Length < 3)
             {
-                var eb = new EmbedBuilder();
-
-                eb.WithColor(Color.Orange);
                 eb.WithTitle("CreateJob");
-                eb.WithAuthor("ScrumBot");
                 eb.WithDescription("Creates a job for a given user, with the following criteria:");
                 eb.AddField(".CreateJob", "Command name");
                 eb.AddField("<title>", "Title of the task");
                 eb.AddField("<developer>", "Name of developer assigned to task");
                 eb.AddField("<description>", "Description of the task");
-                eb.WithFooter("Thank you!");
 
                 await Context.Channel.SendMessageAsync("", false, eb.Build());
             } else {
-                Job job = new Job(args[0], args[1], args[2]);
+                job = new Job(args[0], args[1], args[2]);
                 jobs.Add(job);
-
-                var eb = new EmbedBuilder();
-
-                eb.WithColor(Color.Orange);
                 eb.WithTitle("Job Created Successfully!");
-                eb.WithAuthor("ScrumBot");
                 eb.WithDescription("Job '" + args[0] + "' created and saved successfully.");
                 eb.AddField("Title:", args[0]);
                 eb.AddField("Developer:", args[1]);
                 eb.AddField("Description:", args[2]);
-                eb.WithFooter("Thank you!");
+
+                await Context.Channel.SendMessageAsync("", false, eb.Build());
+            }
+        }
+
+        [Command("CreateStory"), Alias("createStory", "Createstory", "createstory")]
+        public async Task CreateStory([Remainder]string param)
+        {
+            string[] args = param.Split('~');
+            Story story = null;
+
+            if (Context.User.IsBot)
+            {
+                await ReplyAsync("TESTING .CreateStory");
+            }
+
+            var eb = new EmbedBuilder();
+            eb.WithColor(Color.Orange);
+            eb.WithAuthor("ScrumBot");
+            eb.WithFooter("Thank you!");
+
+            if (args.Length < 4)
+            {
+                eb.WithTitle("CreateStory");
+                eb.WithDescription("Creates a user story for a given user during a given sprint.");
+                eb.AddField(".CreateStory", "Command name");
+                eb.AddField("<title>", "Title of user story");
+                eb.AddField("<developer>", "Developer assigned to user story");
+                eb.AddField("<description>", "Description of user story");
+                eb.AddField("<sprint>", "Sprint number");
+
+                await Context.Channel.SendMessageAsync("", false, eb.Build());
+            } else
+            {
+                story = new Story(args[0], args[1], args[2], Convert.ToInt32(args[3]));
+
+                eb.WithTitle("User Story created successfully!");
+                eb.WithDescription("Story: '" + args[0] + "' created and saved successfully.");
+                eb.AddField("Title:", args[0]);
+                eb.AddField("Developer:", args[1]);
+                eb.AddField("Description:", args[2]);
+                eb.AddField("Sprint:", args[3]);
+
+                await Context.Channel.SendMessageAsync("", false, eb.Build());
+            }
+        }
+
+        [Command("CreateTask"), Alias("createTask", "Createtask", "createtask")]
+        public async Task CreateTask([Remainder]string param)
+        {
+            string[] args = param.Split('~');
+            sTask task = null;
+
+            if (Context.User.IsBot)
+            {
+                await ReplyAsync("TESTING .CreateTask");
+            }
+
+            var eb = new EmbedBuilder();
+            eb.WithColor(Color.Orange);
+            eb.WithAuthor("ScrumBot");
+            eb.WithFooter("Thank you!");
+
+            if (args.Length < 5)
+            {
+                eb.WithTitle("CreateTask");
+                eb.WithDescription("Creates a task within a given story, which has a particular due date.");
+                eb.AddField(".CreateTask", "Command name");
+                eb.AddField("<title>", "Title of the task");
+                eb.AddField("<developer>", "Developer assigned to task");
+                eb.AddField("<description>", "Description of the task");
+                eb.AddField("<story>", "The story, of which, the task is a part.");
+                eb.AddField("<dueDate>", "The date that this particular task is due.");
+
+                await Context.Channel.SendMessageAsync("", false, eb.Build());
+            } else
+            {
+                eb.WithTitle("Task created successfully!");
+                eb.WithDescription("Task: '" + args[0] + "' created and saved successfully.");
+                eb.AddField("Title:", args[0]);
+                eb.AddField("Developer:", args[1]);
+                eb.AddField("Description:", args[2]);
+                eb.AddField("Story:", args[3]);
+                eb.AddField("Due Date:", args[4]);
 
                 await Context.Channel.SendMessageAsync("", false, eb.Build());
             }
