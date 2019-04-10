@@ -89,6 +89,8 @@ namespace ScrumBot.Core
         private int sprintNum;
         private DateTime sprintEndDate;
 
+        public List<sTask> taskList = new List<sTask>();
+
         public Story(string title, string developer, string description, int sprint) : base(title, developer, description)
         {
             sprintNum = sprint;
@@ -105,6 +107,15 @@ namespace ScrumBot.Core
         public void setSprint(int sprint)
         {
             sprintNum = sprint;
+        }
+
+        public List<sTask> getTaskList()
+        {
+            return taskList;
+        }
+        public void setTaskList(List<sTask> tasks)
+        {
+            taskList = tasks;
         }
     }
 
