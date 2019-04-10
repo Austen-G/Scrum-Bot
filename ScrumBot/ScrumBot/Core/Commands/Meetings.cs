@@ -15,14 +15,27 @@ namespace ScrumBot.Core.Commands
         /**
          * sets up a list of topics for a meeting
          */
-        [Command("MeetingHelp")]
-        public async Task Meeting([Remainder]String param)
+        [Command("LiveMeeting")]
+        public async Task LiveMeeting([Remainder]String param)
+        {
+            if (param.Length != 3)
+            {
+                await ReplyAsync("Incorrect format: Name, time, agenda");
+            }
+            
+        }
+
+        /**
+         * Asks for a report on everyone's progress every day
+         */
+        [Command("LiveMeeting")]
+        public async Task StandupMeeting([Remainder]String param)
         {
             if (param.Length != 3)
             {
                 await ReplyAsync("Incorrect format: Name, ");
             }
-            
+
         }
     }
 }

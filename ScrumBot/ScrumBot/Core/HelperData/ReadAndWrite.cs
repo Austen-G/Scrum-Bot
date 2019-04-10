@@ -176,13 +176,13 @@ namespace ScrumBot.Core.Commands
 
         //Create Project
         
-        //Create Story
+        //Create Story file
         public void writeStory(Node<Story> foo)
-        { 
-            foo.Value.GetTitle();
-            foo.Value.GetDeveloper();
-            foo.Value.GetDescription();
-            //foo.Value.GetSprint();
+        {
+            foo.Value.getTitle();
+            foo.Value.getDeveloper();
+            foo.Value.getDescription();
+            foo.Value.getSprint();
         }
         //Create Task
     }

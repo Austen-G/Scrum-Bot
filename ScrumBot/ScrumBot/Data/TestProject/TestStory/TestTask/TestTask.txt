@@ -1,0 +1,39 @@
+Title
+---
+Test Task
+---
+
+Developer
+---
+Associated User
+---
+
+Description
+---
+Test Description
+---
+
+Status
+---
+Complete
+---
+
+Associated Story
+---
+Test Story
+---
+
+Date Created
+---
+4/4/2019
+---
+
+Due Date
+---
+4/5/2019
+---
+
+Date finished
+---
+4/4/2019
+---

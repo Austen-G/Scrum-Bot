@@ -8,14 +8,14 @@ namespace ScrumBot.Core.HelperData
 {
     class StartNStop
     {
-        public void startup()
+        public void startup(string projectName)
         {
             ReadAndWrite rw = new ReadAndWrite();
 
             //create root
             Node<Job> project = new Node<Job>();
 
-            StreamReader srStory = rw.openTextToRead(rw.getPath(@"TestProject\StoryList"));
+            StreamReader srStory = rw.openTextToRead(rw.getPath(projectName + @"\StoryList"));
             
             string str;
             string str2;
@@ -30,8 +30,8 @@ namespace ScrumBot.Core.HelperData
                     Convert.ToUInt16(rw.ReadSection(str, "Sprint")));
 
                 Node<Job>tempChild = project.addChild(tempStory);
-                StreamReader srTask = rw.openTextToRead(rw.getPath(@"TestProject\" + rw.ReadSection(str, "Title") + @"\TaskList"));
-                //make all Tasks children of the project
+                StreamReader srTask = rw.openTextToRead(rw.getPath(projectName + @"\" + rw.ReadSection(str, "Title") + @"\TaskList"));
+                //make all Tasks children of the corresponding story
                 while ((str2 = srTask.ReadLine()) != null)
                 {
 
@@ -52,7 +52,11 @@ namespace ScrumBot.Core.HelperData
 
         public void shutDown()
         {
+            backupData();
+        }
 
+        public void backupData()
+        {
 
         }
     }

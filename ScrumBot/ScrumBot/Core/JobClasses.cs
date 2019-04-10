@@ -36,22 +36,22 @@ namespace ScrumBot.Core
 
         public Job() { }
 
-        public void SetTitle(string title)
+        public void setTitle(string title)
         {
             this.title = title;
         }
 
-        public string GetTitle()
+        public string getTitle()
         {
             return title;
         }
 
-        public void SetDeveloper(string developer)
+        public void setDeveloper(string developer)
         {
             this.developer = developer;
         }
 
-        public string GetDeveloper()
+        public string getDeveloper()
         {
             return developer;
         }
@@ -61,7 +61,7 @@ namespace ScrumBot.Core
             this.description = description;
         }
 
-        public string GetDescription()
+        public string getDescription()
         {
             return description;
         }
@@ -95,7 +95,20 @@ namespace ScrumBot.Core
         }
 
         public Story() { }
+
+        // accessors and mutators for story specific fields
+        public int getSprint()
+        {
+            return sprintNum;
+        }
+
+        public void setSprint(int sprint)
+        {
+            sprintNum = sprint;
+        }
     }
+
+
 
     public class sTask : Job
     {
