@@ -10,16 +10,11 @@ using ScrumBot.Core;
 
 namespace ScrumBot.Core.Commands
 {
-   
-
     /**
      * Commands class contains all of the commands for the bot.
      */
     public class Commands : ModuleBase<SocketCommandContext>
-    {
-        List<Job> jobs = new List<Job>();
-        List<Story> stories = new List<Story>();
-        List<sTask> tasks = new List<sTask>();
+    { 
         /**
          *  Defines a task based on given parameters, and adds it to jobs.
          *      [Remainder]string param - Entire substring after the command and space.
@@ -53,7 +48,7 @@ namespace ScrumBot.Core.Commands
                 await Context.Channel.SendMessageAsync("", false, eb.Build());
             } else {
                 job = new Job(args[0], args[1], args[2]);
-                jobs.Add(job);
+                
                 eb.WithTitle("Job Created Successfully!");
                 eb.WithDescription("Job '" + args[0] + "' created and saved successfully.");
                 eb.AddField("Title:", args[0]);
@@ -136,6 +131,8 @@ namespace ScrumBot.Core.Commands
                 await Context.Channel.SendMessageAsync("", false, eb.Build());
             } else
             {
+                task = new sTask(args[0], args[1], args[2], null, new DateTime());
+
                 eb.WithTitle("Task created successfully!");
                 eb.WithDescription("Task: '" + args[0] + "' created and saved successfully.");
                 eb.AddField("Title:", args[0]);
