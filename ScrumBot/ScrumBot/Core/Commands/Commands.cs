@@ -162,5 +162,19 @@ namespace ScrumBot.Core.Commands
                 await Context.Channel.SendMessageAsync("", false, eb.Build());
             }
         }
+        [Command("UpdateJobStatus"), Alias("UpdateStatus", "Status")]
+        public async Task UpdateJobStatus([Remainder]string param)
+        {
+            // Expecting format .UpdateStatus <SprintNum~JobName~JOB_STATUS>
+            //string[] args = param.Split('~'); // Parse input into an array of args
+            //if (args.Length < 3)
+            //{
+            //    await Context.Channel.SendMessageAsync("Too few input arguments");
+            //}
+            //else
+            //{
+            //    Job update = changeStatus(args[0], args[1]); // Finds the job by name and changes its status
+            //}
+        }
     }
 }

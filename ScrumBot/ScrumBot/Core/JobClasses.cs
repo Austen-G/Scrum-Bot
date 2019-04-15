@@ -87,6 +87,14 @@ namespace ScrumBot.Core
         {
             return dateFinished;
         }
+        public void addStory( Story story )
+        {
+            stories.Add(story);
+        }
+        public void removeStory( Story story )
+        {
+            stories.Remove(story);
+        }
 
     }
 
