@@ -23,6 +23,7 @@ namespace ScrumBot.Core
         private DateTime dateCreated;
         private DateTime dateLastModified;
         private DateTime dateFinished;
+        private List<Story> stories;
 
 
         public Job(string title, string developer, string description)
@@ -32,6 +33,7 @@ namespace ScrumBot.Core
             this.description = description;
             this.jobStatus = status.NOT_STARTED;
             dateCreated = DateTime.Now;
+            stories = new List<Story>();
         }
 
         public Job() { }
@@ -68,6 +70,10 @@ namespace ScrumBot.Core
         public DateTime getDateCreated()
         {
             return dateCreated;
+        }
+        public void setStatus(status jobStatus)
+        {
+            this.jobStatus = jobStatus;
         }
         public status getStatus()
         {
