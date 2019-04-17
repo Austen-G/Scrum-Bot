@@ -47,13 +47,7 @@ namespace ScrumBot.Core.Commands
 
                 await Context.Channel.SendMessageAsync("", false, eb.Build());
             } else {
-                job = new Job(args[0], args[1], args[2]);
-
-                ReadAndWrite rw = new ReadAndWrite();
-                rw.CreateFileWithTitle("J" + job.getTitle(), 
-                    job.getDeveloper() + "\r\n" +  job.getDescription() + "\r\n" + job.getStatus()
-                    + "\r\n" + job.getDateCreated() + " " + job.getDateLastModified() + " "
-                    + job.getDateFinished());
+                job = new Job(args[0], args[1], args[2]); // Creates new job object
 
                 eb.WithTitle("Job Created Successfully!");
                 eb.WithDescription("Job '" + args[0] + "' created and saved successfully.");
@@ -96,11 +90,6 @@ namespace ScrumBot.Core.Commands
             {
                 story = new Story(args[0], args[1], args[2], Convert.ToInt32(args[3]));
 
-                ReadAndWrite rw = new ReadAndWrite();
-                rw.CreateFileWithTitle("S" + story.getTitle(),
-                    story.getDeveloper() + "\r\n" + story.getDescription() + "\r\n" + story.getStatus() 
-                    + "\r\n" + story.getSprint() + "\r\n" + story.getDateCreated() + " " 
-                    + story.getDateLastModified() + " " + story.getDateFinished());
 
                 eb.WithTitle("User Story created successfully!");
                 eb.WithDescription("Story: '" + args[0] + "' created and saved successfully.");
@@ -143,13 +132,8 @@ namespace ScrumBot.Core.Commands
                 await Context.Channel.SendMessageAsync("", false, eb.Build());
             } else
             {
-                task = new sTask(args[0], args[1], args[2], new Story(args[3], "", "", 0), new DateTime());
-
-                ReadAndWrite rw = new ReadAndWrite();
-                rw.CreateFileWithTitle("T" + task.getTitle(),
-                    task.getDeveloper() + "\r\n" + task.getDescription() + "\r\n" + task.getStatus()
-                    + "\r\n" + task.getStory().getTitle() + "\r\n" + task.getDueDate() + "\r\n"
-                    + task.getDateCreated() + " " + task.getDateLastModified() + " " + task.getDateFinished());
+                var story = new Story();
+                task = new sTask(args[0], args[1], args[2], story, DateTime.Parse(args[4]));
 
                 eb.WithTitle("Task created successfully!");
                 eb.WithDescription("Task: '" + args[0] + "' created and saved successfully.");
