@@ -23,7 +23,7 @@ namespace ScrumBot.Core
         private DateTime dateCreated;
         private DateTime dateLastModified;
         private DateTime dateFinished;
-        private List<Story> stories;
+        public List<Story> stories;
 
 
         public Job(string title, string developer, string description)

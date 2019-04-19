@@ -18,9 +18,19 @@ namespace ScrumBot.Core.Commands
         {
             path = getPath(fileName);
 
-            StreamWriter File = new StreamWriter(path);
-            File.Write(Title);
-            File.Close();
+            StreamWriter sw = new StreamWriter(path);
+            sw.Write(Title);
+            sw.Close();
+        }
+
+        //Create and name the file putting
+        public void CreateEmptyFile(String fileName)
+        {
+            path = getPath(fileName);
+
+            StreamWriter sw = new StreamWriter(path);
+            sw.Write("");
+            sw.Close();
         }
 
         // Delete a file
@@ -123,19 +133,44 @@ namespace ScrumBot.Core.Commands
             //Get the path of the file
             path = getPath(fileName);
 
-            //Create streamReader and a string to read to
-            StreamReader sr = File.OpenText(path);
+            StreamReader sr;
+
+            if (File.Exists(path) == true)
+            {
+                //Create streamReader and a string to read to
+                sr = File.OpenText(path);
+            } else
+            {
+                Console.WriteLine("Unable to open file for read: file does not exist");
+                sr = null;
+            }
+            
+
             return sr;
+
+            
         }
 
-        //opens an already made file to Write
+        //opens a file to write or creates it and opens a blank file
         public StreamWriter openTextToWrite(string fileName)
         {
             //Get the path of the file
             path = getPath(fileName);
 
-            //Create streamReader and a string to read to
-            StreamWriter sw = File.AppendText(path);
+            StreamWriter sw;
+
+            if (File.Exists(path) == true)
+            {
+                //Create streamWriter at end of current text
+                sw = File.AppendText(path);
+            }
+            else
+            {
+                Console.WriteLine("Unable to open file for read: file does not exist");
+                CreateEmptyFile(path);
+                sw = openTextToWrite(path);
+            }
+
             sw.WriteLine("");
             return sw;
         }
@@ -177,13 +212,23 @@ namespace ScrumBot.Core.Commands
         //Create Project
         
         //Create Story file
-        public void writeStory(Node<Story> foo)
+        public void writeStory(Story story)
         {
-            foo.Value.getTitle();
-            foo.Value.getDeveloper();
-            foo.Value.getDescription();
-            foo.Value.getSprint();
+
+            story.getTitle();
+            story.getDeveloper();
+            story.getDescription();
+            story.getSprint();
         }
         //Create Task
+        public void writeTask(sTask task)
+        {
+            task.getTitle();
+        }
+
+        public void deleteFolder()
+        {
+
+        }
     }
 }

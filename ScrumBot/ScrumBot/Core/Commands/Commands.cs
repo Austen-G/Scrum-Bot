@@ -160,5 +160,27 @@ namespace ScrumBot.Core.Commands
             //    Job update = changeStatus(args[0], args[1]); // Finds the job by name and changes its status
             //}
         }
+
+        [Command("Startup")]
+        public async Task Startup(string projectName)
+        {
+            if (projectName == null)
+            {
+                await ReplyAsync("No project specified. Please enter the project name");
+            }
+            else
+            {
+                await Startup(projectName);
+            }
+        }
+
+
+
+        [Command("TestMethod")]
+        public async Task testFile(string fileName)
+        {
+            ReadAndWrite rw = new ReadAndWrite();
+            rw.CreateEmptyFile(fileName);
+        }
     }
 }

@@ -8,9 +8,12 @@ namespace ScrumBot.Core.HelperData
 {
     class StartNStop
     {
-        public void startup(string projectName)
+
+        ReadAndWrite rw = new ReadAndWrite();
+
+        public Node<Job> startup(string projectName)
         {
-            ReadAndWrite rw = new ReadAndWrite();
+            
 
             //create root
             Node<Job> project = new Node<Job>();
@@ -46,18 +49,30 @@ namespace ScrumBot.Core.HelperData
                 }
             }
 
-            
+            return project;
 
         }
 
-        public void shutDown()
+        public void shutDown(Job project)
         {
-            backupData();
+            backupStories(project);
         }
 
-        public void backupData()
+        public void backupStories(Job project)
         {
+            for(int i = 0; i < project.stories.Count; i++)
+            {
+                rw.writeStory(project.stories[i]);
+                backupSTask(project.stories[i]);
+            }
+        }
 
+        public void backupSTask(Story story)
+        {
+            for (int i = 0; i < story.taskList.Count; i++)
+            {
+                rw.writeTask(story.taskList[i]);
+            }
         }
     }
 }
