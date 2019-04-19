@@ -11,13 +11,11 @@ namespace ScrumBot.Core.HelperData
 
         ReadAndWrite rw = new ReadAndWrite();
 
+        //create root
+        public static Node<Job> project = new Node<Job>();
+
         public Node<Job> startup(string projectName)
         {
-            
-
-            //create root
-            Node<Job> project = new Node<Job>();
-
             StreamReader srStory = rw.openTextToRead(rw.getPath(projectName + @"\StoryList"));
             
             string str;
@@ -73,6 +71,11 @@ namespace ScrumBot.Core.HelperData
             {
                 rw.writeTask(story.taskList[i]);
             }
+        }
+
+        public Job getProject()
+        {
+            return project;
         }
     }
 }
