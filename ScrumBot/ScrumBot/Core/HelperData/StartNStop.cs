@@ -73,7 +73,7 @@ namespace ScrumBot.Core.HelperData
             }
         }
 
-        public Job getProject()
+        public Node<Job> getProject()
         {
             return project;
         }
