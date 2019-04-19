@@ -34,7 +34,7 @@ namespace ScrumBot.Core
             this.jobStatus = status.NOT_STARTED;
             dateCreated = DateTime.Now;
             stories = new List<Story>();
-
+            StartNStop.project.setValue(this);
         }
 
         public Job() { }
@@ -92,6 +92,16 @@ namespace ScrumBot.Core
         {
             stories.Add(story);
         }
+
+        public Story getStory(Story story)
+        {
+            foreach(var item in stories)
+            {
+                if (item == story) return item;
+            }
+
+            return null;
+        }
         public void removeStory( Story story )
         {
             stories.Remove(story);
@@ -109,6 +119,7 @@ namespace ScrumBot.Core
         public Story(string title, string developer, string description, int sprint) : base(title, developer, description)
         {
             sprintNum = sprint;
+            StartNStop.project.Value.addStory(this);
         }
 
         public Story() { }
@@ -133,9 +144,9 @@ namespace ScrumBot.Core
             taskList = tasks;
         }
 
-        public Story findStory(string name)
+        public void addTask(sTask task)
         {
-            return null;
+            taskList.Add(task);
         }
     }
 
@@ -149,7 +160,8 @@ namespace ScrumBot.Core
         public sTask(string title, string developer, string description, Story story, DateTime date) : base(title, developer, description)
         {
             parStory = story;
-            dueDate = date; 
+            dueDate = date;
+            StartNStop.project.Value.getStory(story).addTask(this);
         }
 
         // accessors and mutators for sTask specific fields
