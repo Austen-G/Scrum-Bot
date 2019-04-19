@@ -34,6 +34,7 @@ namespace ScrumBot.Core
             this.jobStatus = status.NOT_STARTED;
             dateCreated = DateTime.Now;
             stories = new List<Story>();
+
         }
 
         public Job() { }
@@ -131,6 +132,11 @@ namespace ScrumBot.Core
         {
             taskList = tasks;
         }
+
+        public Story findStory(string name)
+        {
+            return null;
+        }
     }
 
 
@@ -165,6 +171,10 @@ namespace ScrumBot.Core
             dueDate = date; 
         }
 
+        public sTask findTask(string name)
+        {
+            return null;
+        }
     }
 
 }
