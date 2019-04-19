@@ -22,6 +22,7 @@ namespace ScrumBot.Core
         public Project(string title)
         {
             this.title = title;
+            jobs = new List<Job>();
         }
 
         public void addJob(Job job)
