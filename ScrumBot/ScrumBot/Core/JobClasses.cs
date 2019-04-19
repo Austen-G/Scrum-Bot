@@ -14,28 +14,6 @@ using ScrumBot.Core.HelperData;
 
 namespace ScrumBot.Core
 {
-    public class Project
-    {
-        private string title;
-        private List<Job> jobs;
-
-        public Project(string title)
-        {
-            this.title = title;
-            jobs = new List<Job>();
-        }
-
-        public void addJob(Job job)
-        {
-            jobs.Add(job);
-        }
-
-        public void removeJob(Job job)
-        {
-            jobs.Remove(job);
-        }
-    }
-
     public class Job
     {
         private string title;
