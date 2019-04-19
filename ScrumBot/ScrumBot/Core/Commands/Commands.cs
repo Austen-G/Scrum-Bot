@@ -19,7 +19,7 @@ namespace ScrumBot.Core.Commands
          *  Defines a task based on given parameters, and adds it to jobs.
          *      [Remainder]string param - Entire substring after the command and space.
          */
-        [Command("CreateJob"), Alias("createJob"), Summary("Allows the user to create a job for their project")]
+        [Command("CreateJob"), Alias("CreateProject"), Summary("Allows the user to create a job for their project")]
         public async Task CreateJob([Remainder]string param)
         {
             string[] args = param.Split('~'); // Parses parameters using '~' delimiter.
