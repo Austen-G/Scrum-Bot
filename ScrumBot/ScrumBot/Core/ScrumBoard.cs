@@ -6,7 +6,7 @@ using ScrumBot.Core.HelperData;
 
 namespace ScrumBot.Core
 {
-    class ScrumBoard
+    public class ScrumBoard
     {
         // different lists for story progress
         private List<Story> notStarted = new List<Story>();
@@ -19,11 +19,11 @@ namespace ScrumBot.Core
 
 
         // methods expressions to add a given story to a status list
-        void addToNotStarted(Story s) => notStarted.Add(s);
-        void addToInProgress(Story s) => inProgress.Add(s);
-        void addToInTesting(Story s) => inTesting.Add(s);
-        void addToDone(Story s) => done.Add(s);
-        void addToComplete(Story s) => complete.Add(s);
+        public void addToNotStarted(Story s) => notStarted.Add(s);
+        public void addToInProgress(Story s) => inProgress.Add(s);
+        public void addToInTesting(Story s) => inTesting.Add(s);
+        public void addToDone(Story s) => done.Add(s);
+        public void addToComplete(Story s) => complete.Add(s);
 
 
         // method to return a list of all stories with a given status
@@ -67,7 +67,7 @@ namespace ScrumBot.Core
             }
 
             // get the title of the story
-            String title = s.getTitle();
+            string title = s.getTitle();
 
             // define the holder for our search list (makes searching easier later) 
             List<Story> searchList = null;
@@ -96,6 +96,7 @@ namespace ScrumBot.Core
             // loop through all stories in our search list
             foreach(Story thisStory in searchList)
             {
+
                 // temp variable for our story if we find it
                 Story temp = null;
 

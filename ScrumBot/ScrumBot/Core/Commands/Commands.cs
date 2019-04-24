@@ -14,8 +14,10 @@ namespace ScrumBot.Core.Commands
     /**
      * Commands class contains all of the commands for the bot.
      */
+
     public class Commands : ModuleBase<SocketCommandContext>
-    { 
+    {
+        public ScrumBoard sb = new ScrumBoard();
         /**
          *  Defines a task based on given parameters, and adds it to jobs.
          *      [Remainder]string param - Entire substring after the command and space.
@@ -90,7 +92,7 @@ namespace ScrumBot.Core.Commands
             } else
             {
                 story = new Story(args[0], args[1], args[2], Convert.ToInt32(args[3]));
-
+                sb.addToNotStarted(story);
 
                 eb.WithTitle("User Story created successfully!");
                 eb.WithDescription("Story: '" + args[0] + "' created and saved successfully.");
@@ -158,24 +160,87 @@ namespace ScrumBot.Core.Commands
             }
             else
             {
+                status oldStatus;
+                status newStatus;
+
+                switch (args[1])
+                {
+                    case "NOT_STARTED":
+                        oldStatus = status.NOT_STARTED;
+                        break;
+                    case "IN_PROGRESS":
+                        oldStatus = status.IN_PROGRESS;
+                        break;
+                    case "NEEDS_TESTING":
+                        oldStatus = status.NEEDS_TESTING;
+                        break;
+                    case "IN_TESTING":
+                        oldStatus = status.IN_TESTING;
+                        break;
+                    case "DONE":
+                        oldStatus = status.DONE;
+                        break;
+                    case "COMPLETE":
+                        oldStatus = status.COMPLETE;
+                        break;
+                    default:
+                        oldStatus = status.NOT_STARTED;
+                        break;
+                }
+                switch (args[2])
+                {
+                    case "NOT_STARTED":
+                        newStatus = status.NOT_STARTED;
+                        break;
+                    case "IN_PROGRESS":
+                        newStatus = status.IN_PROGRESS;
+                        break;
+                    case "NEEDS_TESTING":
+                        newStatus = status.NEEDS_TESTING;
+                        break;
+                    case "IN_TESTING":
+                        newStatus = status.IN_TESTING;
+                        break;
+                    case "DONE":
+                        newStatus = status.DONE;
+                        break;
+                    case "COMPLETE":
+                        newStatus = status.COMPLETE;
+                        break;
+                    default:
+                        newStatus = status.NOT_STARTED;
+                        break;
+                }
+
                 bool success = false;
-                ScrumBoard sb = new ScrumBoard();
 
                 // Gets a list of all stories with the old status input from the second argument
-                List<Story> stories = sb.getList( (status) Convert.ToUInt32(args[1]) );
+                List<Story> stories = sb.getList( oldStatus );
 
                 // Find the story input by name
                 foreach (Story s in stories)
                 {
+                    Console.WriteLine("1");
                     if( s.getTitle().Equals(args[0]) )
                     {
-                        success = sb.changeStatus(s, (status)Convert.ToUInt32(args[2]));
+                        Console.WriteLine("2");
+                        success = sb.changeStatus(s, newStatus);
                         break;
                     }
                 }
                 if( !success )
                 {
                     await Context.Channel.SendMessageAsync("Error: Failed to change status of story " + args[0]);
+                } else
+                {
+                    var eb = new EmbedBuilder();
+                    eb.WithColor(Color.Orange);
+                    eb.WithAuthor("ScrumBot");
+                    eb.WithFooter("Thank you!");
+                    eb.WithTitle("Status Changed");
+                    eb.WithDescription("Story: " + args[0] + " now has status " + newStatus);
+
+                    await Context.Channel.SendMessageAsync("", false, eb.Build());
                 }
             }
         }
