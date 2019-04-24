@@ -16,7 +16,7 @@ namespace ScrumBot.Core.Commands
      * Full reminder is created as a new file Reminders\ReminderName.txt with separated sections for each feild of data
      * 
      * Command format
-     * .Reminder <Reminder name>~<Reminder message>~<Days.Hours:MinutesFromNow>~<TargetUser1><MoreUsers>...
+     * .Reminder <Reminder name>~<Reminder message>~<MM/DD/YYYY HH:MM:SS AM/PM>~<TargetUser1><MoreUsers>...
      */
     public class Reminder : ModuleBase<SocketCommandContext>
     {
@@ -77,7 +77,7 @@ namespace ScrumBot.Core.Commands
             {
                 // Too few args. Print an error
                 await Context.Channel.SendMessageAsync("Oops! That's not enough input arguments for this command. Try:\n" +
-                    ".Reminder <Reminder name>~<Reminder message>~<Days.Hours:MinutesFromNow>~<TargetUser1>~<MoreUsers...");
+                    ".Reminder <Reminder name>~<Reminder message>~<MM/DD/YYYY HH:MM:SS AM/PM>~<TargetUser1><MoreUsers>...");
             }
 
             while (true)
