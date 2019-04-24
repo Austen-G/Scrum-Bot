@@ -147,19 +147,37 @@ namespace ScrumBot.Core.Commands
                 await Context.Channel.SendMessageAsync("", false, eb.Build());
             }
         }
-        [Command("UpdateJobStatus"), Alias("UpdateStatus", "Status")]
-        public async Task UpdateJobStatus([Remainder]string param)
+        [Command("UpdateStoryStatus"), Alias("UpdateStatus", "Status")]
+        public async Task UpdateStatus([Remainder]string param)
         {
-            // Expecting format .UpdateStatus <SprintNum~JobName~JOB_STATUS>
-            //string[] args = param.Split('~'); // Parse input into an array of args
-            //if (args.Length < 3)
-            //{
-            //    await Context.Channel.SendMessageAsync("Too few input arguments");
-            //}
-            //else
-            //{
-            //    Job update = changeStatus(args[0], args[1]); // Finds the job by name and changes its status
-            //}
+            //Expecting format .UpdateStatus <StoryName~OldStatus~NewStatus>
+            string[] args = param.Split('~'); // Parse input into an array of args
+            if (args.Length < 3)
+            {
+                await Context.Channel.SendMessageAsync("Too few input arguments. Try: .UpdateStatus <StoryName~OldStatus~NewStatus>");
+            }
+            else
+            {
+                bool success = false;
+                ScrumBoard sb = new ScrumBoard();
+
+                // Gets a list of all stories with the old status input from the second argument
+                List<Story> stories = sb.getList( (status) Convert.ToUInt32(args[1]) );
+
+                // Find the story input by name
+                foreach (Story s in stories)
+                {
+                    if( s.getTitle().Equals(args[0]) )
+                    {
+                        success = sb.changeStatus(s, (status)Convert.ToUInt32(args[2]));
+                        break;
+                    }
+                }
+                if( !success )
+                {
+                    await Context.Channel.SendMessageAsync("Error: Failed to change status of story " + args[0]);
+                }
+            }
         }
 
         [Command("Startup")]

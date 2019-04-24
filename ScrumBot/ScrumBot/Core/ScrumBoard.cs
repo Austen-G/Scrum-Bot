@@ -27,7 +27,7 @@ namespace ScrumBot.Core
 
 
         // method to return a list of all stories with a given status
-        List<Story> getList(status s)
+        public List<Story> getList(status s)
         {
             List<Story> temp = null;
 
@@ -53,7 +53,7 @@ namespace ScrumBot.Core
             return temp;
         }
 
-        bool changeStatus(Story s, status newStatus)
+        public bool changeStatus(Story s, status newStatus)
         {
 
             // set our return to false as default and grab the current status of our story
