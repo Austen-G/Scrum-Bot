@@ -16,19 +16,15 @@ namespace ScrumBot.Core.Commands
         //Create and name the file putting
         public void CreateFileWithTitle(String fileName, String Title)
         {
-            path = getPath(fileName);
-
             StreamWriter sw = new StreamWriter(path);
             sw.Write(Title);
             sw.Close();
         }
 
         //Create and name the file putting
-        public void CreateEmptyFile(String fileName)
+        public void CreateEmptyFile(String path)
         {
-            path = getPath(fileName);
-
-            StreamWriter sw = new StreamWriter(path);
+            StreamWriter sw = new StreamWriter(path + ".txt");
             sw.Write("");
             sw.Close();
         }
@@ -166,7 +162,7 @@ namespace ScrumBot.Core.Commands
             }
             else
             {
-                Console.WriteLine("Unable to open file for read: file does not exist");
+                Console.WriteLine("Unable to open file: file does not exist... Creating new empty file");
                 CreateEmptyFile(path);
                 sw = openTextToWrite(path);
             }
@@ -209,24 +205,65 @@ namespace ScrumBot.Core.Commands
             return path;
         }
 
-        //Create Project
-        
-        //Create Story file
-        public void writeStory(Story story)
+        public String getPathNoText(String fileName)
         {
+            String workingDirectory = System.IO.Directory.GetCurrentDirectory();
+            path = Directory.GetParent(workingDirectory).Parent.FullName;
+            workingDirectory = path;
+            path = Directory.GetParent(workingDirectory).Parent.FullName;
+            path = path + @"\ScrumBot\Data\" + fileName;
+            return path;
+        }
 
-            story.getTitle();
-            story.getDeveloper();
-            story.getDescription();
-            story.getSprint();
+        //Create Project
+        public void writeJob(Job project, string path)
+        {
+            StreamWriter sw = openTextToWrite(path);
+            addSection(sw, "Title", project.getTitle());
+            sw.Close();
+        }
+
+        //Create Story file
+        public void writeJob(Story story, string path)
+        {
+            StreamWriter sw = openTextToWrite(path);
+            addSection(sw, "Title", story.getTitle());
+            addSection(sw, "Developer", story.getDeveloper());
+            addSection(sw, "Description", story.getDescription());
+            addSection(sw, "Sprint", story.getSprint().ToString());
+            sw.Close();
         }
         //Create Task
-        public void writeTask(sTask task)
+        public void writeJob(sTask task, string path)
         {
-            task.getTitle();
+            StreamWriter sw = openTextToWrite(path);
+            addSection(sw, "Title", task.getTitle());
+            addSection(sw, "Developer", task.getDeveloper());
+            addSection(sw, "Description", task.getDescription());
+            sw.Close();
         }
 
-        public void deleteFolder()
+        //write a list of children of a job
+        public void writeChildrenList(Job job, string path)
+        {
+            StreamWriter sw = openTextToWrite(path);
+            for(int i = 0; i < job.children.Count; i++)
+            {
+                sw.WriteLine(job.children[i].getTitle());
+            }
+            sw.Close();
+        }
+
+        //Create folder and return the path inside the folder
+        public string createFolder(string rootFolder, string subFolderName)
+        {
+            string newPath = System.IO.Path.Combine(rootFolder, subFolderName + @"\");
+            System.IO.Directory.CreateDirectory(newPath);
+            return newPath;
+        }
+
+
+        public void deleteFolder(string path)
         {
 
         }

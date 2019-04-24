@@ -14,7 +14,7 @@ namespace ScrumBot.Core.HelperData
         //create root
         public static Node<Job> project = new Node<Job>();
 
-        public Node<Job> startup(string projectName)
+        public Node<Job> Startup(string projectName)
         {
             StreamReader srStory = rw.openTextToRead(rw.getPath(projectName + @"\StoryList"));
             
@@ -51,31 +51,73 @@ namespace ScrumBot.Core.HelperData
 
         }
 
-        public void shutDown(Job project)
+        public void Shutdown(Job project)
         {
-            backupStories(project);
+            BackupProject(project);
+            project = null;
         }
 
-        public void backupStories(Job project)
+        public void BackupProject(Job project)
         {
-            for(int i = 0; i < project.stories.Count; i++)
+            //get data folder path
+            string currentPath = rw.getPathNoText("");
+            //create directory
+            currentPath = rw.createFolder(currentPath, project.getTitle());
+            //write project file
+            rw.writeJob(project, currentPath + project.getTitle());
+            //write file with all story names
+            rw.writeChildrenList(project, currentPath + "StoryList");
+
+            //Iterate through all stories
+            for (int i = 0; i < project.children.Count; i++)
             {
-                rw.writeStory(project.stories[i]);
-                backupSTask(project.stories[i]);
+                string pathSection = project.getTitle() + @"\" + project.children[i].getTitle();
+                BackupStories(project.children[i], pathSection);
             }
         }
 
-        public void backupSTask(Story story)
+
+        public void BackupStories(Job story, string pathSection)
         {
-            for (int i = 0; i < story.taskList.Count; i++)
+            //Set path
+            string currentPath = rw.getPathNoText(pathSection);
+            //Create directory for story and navigate inside
+            currentPath = rw.createFolder(currentPath, story.getTitle());
+            //write story file
+            rw.writeJob(story, currentPath);
+            //Write file with all task names
+            rw.writeChildrenList(story, currentPath + "StoryList");
+
+            
+            //iterate through all tasks
+            for (int i = 0; i < story.children.Count; i++)
             {
-                rw.writeTask(story.taskList[i]);
+                string pathSection2 = currentPath + story.children[i].getTitle();
+                BackupTasks(story.children[i], pathSection);
             }
+            
+
         }
 
-        public Node<Job> getProject()
+        public void BackupTasks(Job task, string pathSection)
+        {
+            //Set path
+            string currentPath = rw.getPathNoText(pathSection);
+            //Create directory for story and navigate inside
+            currentPath = rw.createFolder(currentPath, task.getTitle());
+            //write story file
+            rw.writeJob(task, currentPath);
+        }
+
+        public Node<Job> GetProject()
         {
             return project;
+        }
+
+
+        public Job GetProjectValue()
+        {
+            return project.Value;
         }
     }
 }

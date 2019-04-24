@@ -7,6 +7,7 @@ using Discord;
 using Discord.Commands;
 
 using ScrumBot.Core;
+using ScrumBot.Core.HelperData;
 
 namespace ScrumBot.Core.Commands
 {
@@ -162,25 +163,37 @@ namespace ScrumBot.Core.Commands
         }
 
         [Command("Startup")]
-        public async Task Startup(string projectName)
+        public async Task begin(string projectName)
         {
+            StartNStop sns = new StartNStop();
+
             if (projectName == null)
             {
                 await ReplyAsync("No project specified. Please enter the project name");
             }
             else
             {
-                await Startup(projectName);
+                sns.Startup(projectName);
             }
         }
 
+        [Command("Shutdown")]
+        public async Task end()
+        {
+            StartNStop sns = new StartNStop();
 
+            sns.Shutdown(sns.GetProjectValue());
+        }
 
         [Command("TestMethod")]
-        public async Task testFile(string fileName)
+        public async Task Test()
         {
+
             ReadAndWrite rw = new ReadAndWrite();
-            rw.CreateEmptyFile(fileName);
-        }
+            StartNStop sns = new StartNStop();
+            
+            sns.Shutdown(sns.GetProjectValue());
+
+        }    
     }
 }

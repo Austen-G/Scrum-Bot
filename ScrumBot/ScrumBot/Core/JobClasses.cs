@@ -23,7 +23,7 @@ namespace ScrumBot.Core
         private DateTime dateCreated;
         private DateTime dateLastModified;
         private DateTime dateFinished;
-        public List<Story> stories;
+        public List<Job> children;
 
 
         public Job(string title, string developer, string description)
@@ -33,7 +33,7 @@ namespace ScrumBot.Core
             this.description = description;
             this.jobStatus = status.NOT_STARTED;
             dateCreated = DateTime.Now;
-            stories = new List<Story>();
+            children = new List<Job>();
             StartNStop.project.setValue(this);
         }
 
@@ -90,12 +90,16 @@ namespace ScrumBot.Core
         }
         public void addStory( Story story )
         {
-            stories.Add(story);
+            children.Add(story);
+        }
+        public void addTask( sTask task)
+        {
+            children.Add(task);
         }
 
-        public Story getStory(Story story)
+        public Job getStory(Story story)
         {
-            foreach(var item in stories)
+            foreach(var item in children)
             {
                 if (item == story) return item;
             }
@@ -104,7 +108,7 @@ namespace ScrumBot.Core
         }
         public void removeStory( Story story )
         {
-            stories.Remove(story);
+            children.Remove(story);
         }
 
     }
@@ -113,8 +117,6 @@ namespace ScrumBot.Core
     {
         private int sprintNum;
         private DateTime sprintEndDate;
-
-        public List<sTask> taskList = new List<sTask>();
 
         public Story(string title, string developer, string description, int sprint) : base(title, developer, description)
         {
@@ -135,18 +137,13 @@ namespace ScrumBot.Core
             sprintNum = sprint;
         }
 
-        public List<sTask> getTaskList()
+        public List<Job> getTaskList()
         {
-            return taskList;
+            return children;
         }
-        public void setTaskList(List<sTask> tasks)
+        public void setTaskList(List<Job> tasks)
         {
-            taskList = tasks;
-        }
-
-        public void addTask(sTask task)
-        {
-            taskList.Add(task);
+            children = tasks;
         }
     }
 
