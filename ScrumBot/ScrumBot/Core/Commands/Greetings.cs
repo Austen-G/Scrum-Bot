@@ -49,7 +49,10 @@ namespace ScrumBot.Core.Commands
             eb.WithTitle("Help");
             eb.WithDescription("Here's a list of the available commands: ");
             eb.AddField(".CreateFile <filename> <text>", "Creates a new file with the given text input", true);
+            eb.AddField(".CreateJob <Title>~<Developer>~<Description>", "Create a job for the scrumboard", true);
+            eb.AddField(".CreateStory <Title>~<Developer>~<Description>~<SprintNumber>", "Create a user story for the scrumboard", true);
             eb.AddField(".CreateTask <title>~<developer>~<description>~<jobStatus>", "Creates a task for a certain developer with the given text input", true);
+            eb.AddField(".UpdateStatus <StoryName>~<OldStatus>~<NewStatus>", "Change the status of a user story", true);
             eb.AddField(".Echo <text>", "Repeats text back to user", true);
             eb.AddField(".Edit <filename> <section> <newText>", "Edits an existing file at the given section.", true);
             eb.AddField(".Greetings", "Bot says 'Oh hey there!'", true);
