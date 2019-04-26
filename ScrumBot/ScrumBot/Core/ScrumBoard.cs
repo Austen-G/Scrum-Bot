@@ -6,14 +6,33 @@ using ScrumBot.Core.HelperData;
 
 namespace ScrumBot.Core
 {
+    
+    public struct lists
+    {
+        public List<Story> notStarted;
+        public List<Story> inProgress;
+        public List<Story> inTesting;
+        public List<Story> done;
+        public List<Story> complete;
+
+        public lists(List<Story> ns, List<Story> ip, List<Story> it, List<Story> d, List<Story> c)
+        {
+            notStarted = ns;
+            inProgress = ip;
+            inTesting = it;
+            done = d;
+            complete = c;
+        }
+    }
+
     public class ScrumBoard
     {
         // different lists for story progress
-        private List<Story> notStarted = new List<Story>();
-        private List<Story> inProgress = new List<Story>();
-        private List<Story> inTesting = new List<Story>();
-        private List<Story> done = new List<Story>();
-        private List<Story> complete = new List<Story>(); 
+        public List<Story> notStarted = new List<Story>();
+        public List<Story> inProgress = new List<Story>();
+        public List<Story> inTesting = new List<Story>();
+        public List<Story> done = new List<Story>();
+        public List<Story> complete = new List<Story>(); 
         
         public ScrumBoard(){}
 
@@ -24,6 +43,12 @@ namespace ScrumBot.Core
         public void addToInTesting(Story s) => inTesting.Add(s);
         public void addToDone(Story s) => done.Add(s);
         public void addToComplete(Story s) => complete.Add(s);
+
+        public lists getAllLists()
+        {
+            lists lStruct = new lists(this.notStarted, this.inProgress, this.inTesting, this.done, this.complete);
+            return lStruct;
+        }
 
 
         // method to return a list of all stories with a given status
@@ -56,18 +81,23 @@ namespace ScrumBot.Core
         public bool changeStatus(Story s, status newStatus)
         {
 
+
             // set our return to false as default and grab the current status of our story
             bool successful = false;
             status currStatus = s.getStatus();
 
+
+            string sName = s.getTitle();
+            Console.WriteLine("Request to change story " + sName + "with status " + currStatus + " to " + newStatus);
+
             // if we are trying to change the status of the story to its current status, we did nothing
-            if(currStatus == newStatus)
+            if (currStatus == newStatus)
             {
                 return successful;
             }
 
             // get the title of the story
-            string title = s.getTitle();
+            String title = s.getTitle();
 
             // define the holder for our search list (makes searching easier later) 
             List<Story> searchList = null;
@@ -96,7 +126,6 @@ namespace ScrumBot.Core
             // loop through all stories in our search list
             foreach(Story thisStory in searchList)
             {
-
                 // temp variable for our story if we find it
                 Story temp = null;
 
@@ -161,8 +190,7 @@ namespace ScrumBot.Core
             return successful;
 
         }
-
-
-
     }
+
+
 }

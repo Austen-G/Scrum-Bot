@@ -65,6 +65,7 @@ namespace ScrumBot.Core.Commands
         [Command("CreateStory"), Alias("createStory", "Createstory", "createstory")]
         public async Task CreateStory([Remainder]string param)
         {
+            //Console.WriteLine("Received command to create a story");
             string[] args = param.Split('~');
             Story story = null;
 
@@ -223,6 +224,7 @@ namespace ScrumBot.Core.Commands
                     Console.WriteLine("1");
                     if( s.getTitle().Equals(args[0]) )
                     {
+                        Console.WriteLine("Story has been found");
                         Console.WriteLine("2");
                         success = sb.changeStatus(s, newStatus);
                         break;
