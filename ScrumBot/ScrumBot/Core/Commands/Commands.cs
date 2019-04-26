@@ -110,7 +110,7 @@ namespace ScrumBot.Core.Commands
         public async Task CreateTask([Remainder]string param)
         {
             string[] args = param.Split('~');
-            sTask task = null;
+            sTask task = new sTask();
 
             if (Context.User.IsBot)
             {
@@ -136,8 +136,16 @@ namespace ScrumBot.Core.Commands
                 await Context.Channel.SendMessageAsync("", false, eb.Build());
             } else
             {
-                var story = new Story();
-                task = new sTask(args[0], args[1], args[2], story, DateTime.Parse(args[4]));
+                task.setTitle(args[0]);
+                Console.WriteLine("Task title set");
+                task.setDeveloper(args[1]);
+                Console.WriteLine("Task dev set");
+                task.SetDescription(args[2]);
+                Console.WriteLine("Task desc set");
+                task.setStory(args[3]);
+                Console.WriteLine("Task story set");
+                task.setDueDate(DateTime.Parse(args[4]));
+                Console.WriteLine("Task due date set");
 
                 eb.WithTitle("Task created successfully!");
                 eb.WithDescription("Task: '" + args[0] + "' created and saved successfully.");

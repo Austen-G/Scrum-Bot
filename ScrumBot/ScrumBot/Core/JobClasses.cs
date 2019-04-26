@@ -154,12 +154,14 @@ namespace ScrumBot.Core
         private Story parStory;
         private DateTime dueDate;
 
-        public sTask(string title, string developer, string description, Story story, DateTime date) : base(title, developer, description)
+        public sTask(string title, string developer, string description, string story, DateTime date) : base(title, developer, description)
         {
-            parStory = story;
+            parStory = findStory(story);
             dueDate = date;
-            StartNStop.project.Value.getStory(story).addTask(this);
+            StartNStop.project.Value.getStory(parStory).addTask(this);
         }
+
+        public sTask() {  }
 
         // accessors and mutators for sTask specific fields
         public Story getStory()
@@ -171,17 +173,24 @@ namespace ScrumBot.Core
             return dueDate;
         }
 
-        public void setStory(Story story)
+        public void setStory(string story)
         {
-            parStory = story;
+            parStory = findStory(story);
         }
         public void setDueDate(DateTime date)
         {
             dueDate = date; 
         }
 
-        public sTask findTask(string name)
+        public Story findStory(string story)
         {
+            var project = StartNStop.project.Value;
+
+            foreach(Story s in project.children)
+            {
+                if (s.getTitle().CompareTo(story) == 0) return s;
+            }
+
             return null;
         }
     }
